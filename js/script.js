@@ -91,7 +91,7 @@ cartOverlay.addEventListener('click', (event) => {
   }
 });
 
-// ===
+// === goods page
 
 try {
   const goodsList = document.querySelector('.goods__list');
@@ -99,6 +99,14 @@ try {
   if (!goodsList) {
     throw 'This is not a good page';
   }
+
+  const goodsTitle = document.querySelector('.goods__title');
+
+  const changeTitle = () => {
+    goodsTitle.textContent = document.querySelector(
+      `[href*='#${hash}']`
+    ).textContent;
+  };
 
   const createCard = ({ id, preview, cost, brand, name, sizes }) => {
     const li = document.createElement('li');
@@ -139,7 +147,10 @@ try {
   window.addEventListener('hashchange', () => {
     hash = location.hash.substring(1);
     getGoods(renderGoodsList, hash);
+    changeTitle();
   });
+
+  changeTitle();
 
   getGoods(renderGoodsList, hash);
 } catch (err) {
